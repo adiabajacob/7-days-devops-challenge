@@ -75,8 +75,8 @@ resource "aws_iam_role_policy" "codebuild_policy" {
           "s3:GetBucketLocation"
         ]
         Resource = [
-          aws_s3_bucket.artifacts.arn,
-          "${aws_s3_bucket.artifacts.arn}/*"
+          "arn:aws:s3:::${var.project_name}-*",
+          "arn:aws:s3:::${var.project_name}-*/*"
         ]
       },
       {
