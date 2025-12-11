@@ -341,4 +341,4 @@ MIT License - feel free to use this for learning and portfolio purposes!
 
 ---
 
-**Built with ❤️ for the DevOps community**
+
