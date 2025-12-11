@@ -18,11 +18,15 @@ NODE_PATH=$(which node)
 echo "Using node at: $NODE_PATH"
 
 # Start with nohup
-nohup $NODE_PATH server.js > /var/log/devops-app.log 2>&1 &
+# Start with nohup
+LOG_FILE="/home/ec2-user/devops-app.log"
+PID_FILE="/home/ec2-user/devops-app.pid"
+
+nohup $NODE_PATH server.js > $LOG_FILE 2>&1 &
 
 # Save the PID
 PID=$!
-echo $PID > /var/run/devops-app.pid
+echo $PID > $PID_FILE
 
 echo "Application started with PID: $PID"
 sleep 5
@@ -34,6 +38,6 @@ if ps -p $PID > /dev/null; then
 else
    echo "Process $PID failed to start"
    # Print last few lines of log
-   tail -n 20 /var/log/devops-app.log
+   tail -n 20 /home/ec2-user/devops-app.log
    exit 1
 fi

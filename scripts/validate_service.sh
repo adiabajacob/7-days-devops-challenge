@@ -26,5 +26,5 @@ done
 echo "❌ Application health check failed after $MAX_RETRIES attempts"
 # Check logs to see what happened
 echo "Server logs:"
-tail -n 50 /var/log/devops-app.log
+tail -n 50 /home/ec2-user/devops-app.log
 exit 1
