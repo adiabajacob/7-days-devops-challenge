@@ -1,0 +1,17 @@
+{
+  "name": "devops-challenge-app",
+  "version": "1.0.0",
+  "description": "Simple Node.js app for 7 Days DevOps Challenge",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"Running tests...\" && exit 0",
+    "dev": "node server.js"
+  },
+  "keywords": ["devops", "aws", "cicd"],
+  "author": "DevOps Challenge",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}

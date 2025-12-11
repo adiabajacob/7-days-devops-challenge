@@ -1,0 +1,39 @@
+version: 0.2
+
+env:
+  variables:
+    NODE_ENV: "production"
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 18
+    commands:
+      - echo "Installing Node.js dependencies..."
+      
+  pre_build:
+    commands:
+      - echo "Pre-build phase started"
+      - cd app
+      - npm install
+      - echo "Dependencies installed"
+
+  build:
+    commands:
+      - echo "Build phase started"
+      - npm test || echo "No tests defined, skipping..."
+      - echo "Build completed successfully"
+
+  post_build:
+    commands:
+      - echo "Post-build phase started"
+      - echo "Build completed on $(date)"
+
+artifacts:
+  files:
+    - '**/*'
+  name: devops-challenge-$(date +%Y-%m-%d-%H-%M-%S)
+
+cache:
+  paths:
+    - 'app/node_modules/**/*'

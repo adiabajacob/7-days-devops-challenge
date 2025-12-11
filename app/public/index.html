@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevOps Challenge - 7 Days CI/CD Pipeline</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+        }
+
+        .container {
+            text-align: center;
+            padding: 40px;
+            max-width: 800px;
+        }
+
+        .logo {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, #e94560, #ff6b6b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #a0a0a0;
+            margin-bottom: 40px;
+        }
+
+        .status-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .status-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .status-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .status-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .status-item .icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .status-item .label {
+            font-size: 0.9rem;
+            color: #a0a0a0;
+        }
+
+        .status-item .value {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #4ade80;
+        }
+
+        .pipeline-stages {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+
+        .stage {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px 25px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .stage:hover {
+            background: rgba(233, 69, 96, 0.3);
+            transform: scale(1.05);
+        }
+
+        .stage.active {
+            background: linear-gradient(135deg, #e94560, #ff6b6b);
+            box-shadow: 0 5px 20px rgba(233, 69, 96, 0.4);
+        }
+
+        .arrow {
+            color: #4ade80;
+            font-size: 1.5rem;
+        }
+
+        .footer {
+            margin-top: 40px;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .version-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #4ade80, #22c55e);
+            color: #000;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        #server-info {
+            text-align: left;
+            margin-top: 20px;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">🚀</div>
+        <h1>7 Days DevOps Challenge</h1>
+        <p class="subtitle">Complete CI/CD Pipeline with Terraform & Node.js</p>
+
+        <div class="status-card">
+            <h2>📊 Deployment Status</h2>
+            <div class="status-grid">
+                <div class="status-item">
+                    <div class="icon">✅</div>
+                    <div class="value" id="status">Healthy</div>
+                    <div class="label">Status</div>
+                </div>
+                <div class="status-item">
+                    <div class="icon">🏠</div>
+                    <div class="value" id="hostname">Loading...</div>
+                    <div class="label">Hostname</div>
+                </div>
+                <div class="status-item">
+                    <div class="icon">⏱️</div>
+                    <div class="value" id="uptime">Loading...</div>
+                    <div class="label">Uptime</div>
+                </div>
+                <div class="status-item">
+                    <div class="icon">📦</div>
+                    <div class="value" id="version">v1.0.0</div>
+                    <div class="label">Version</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="pipeline-stages">
+            <div class="stage">
+                <span>📂</span>
+                <span>GitHub</span>
+            </div>
+            <span class="arrow">→</span>
+            <div class="stage">
+                <span>🔨</span>
+                <span>CodeBuild</span>
+            </div>
+            <span class="arrow">→</span>
+            <div class="stage">
+                <span>📦</span>
+                <span>CodeArtifact</span>
+            </div>
+            <span class="arrow">→</span>
+            <div class="stage active">
+                <span>🚀</span>
+                <span>CodeDeploy</span>
+            </div>
+            <span class="arrow">→</span>
+            <div class="stage">
+                <span>☁️</span>
+                <span>EC2</span>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Built with ❤️ using Terraform & AWS</p>
+            <div class="version-badge">Deployed via CodePipeline</div>
+        </div>
+    </div>
+
+    <script>
+        async function fetchStatus() {
+            try {
+                const response = await fetch('/health');
+                const data = await response.json();
+                
+                document.getElementById('status').textContent = data.status === 'healthy' ? 'Healthy' : 'Unhealthy';
+                document.getElementById('hostname').textContent = data.hostname || 'Unknown';
+                document.getElementById('uptime').textContent = formatUptime(data.uptime);
+                document.getElementById('version').textContent = 'v' + data.version;
+            } catch (error) {
+                console.error('Failed to fetch status:', error);
+            }
+        }
+
+        function formatUptime(seconds) {
+            if (!seconds) return 'N/A';
+            const hours = Math.floor(seconds / 3600);
+            const minutes = Math.floor((seconds % 3600) / 60);
+            const secs = Math.floor(seconds % 60);
+            
+            if (hours > 0) return `${hours}h ${minutes}m`;
+            if (minutes > 0) return `${minutes}m ${secs}s`;
+            return `${secs}s`;
+        }
+
+        // Fetch status on load and every 10 seconds
+        fetchStatus();
+        setInterval(fetchStatus, 10000);
+    </script>
+</body>
+</html>

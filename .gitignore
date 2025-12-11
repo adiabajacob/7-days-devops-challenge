@@ -1,0 +1,29 @@
+# Git ignore for 7 Days DevOps Challenge
+
+# Terraform
+terraform/.terraform/
+terraform/*.tfstate
+terraform/*.tfstate.*
+terraform/.terraform.lock.hcl
+terraform/*.tfplan
+terraform/crash.log
+terraform/*.auto.tfvars
+
+# Node.js
+app/node_modules/
+app/npm-debug.log
+app/.env
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
