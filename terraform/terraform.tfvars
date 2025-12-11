@@ -1,15 +1,15 @@
 # AWS Region
-aws_region = "us-east-1"
+aws_region = "eu-west-1"
 
 # Project Configuration
-project_name = "devops-challenge"
+project_name = "devops-challenge-jacob"
 environment  = "dev"
 
 # EC2 Configuration
 instance_type = "t2.micro"
 
 # GitHub Repository (CHANGE THESE!)
-github_repo_owner = "YOUR_GITHUB_USERNAME"
+github_repo_owner = "adiabajacob"
 github_repo_name  = "7-days-devops-challenge"
 github_branch     = "main"
 

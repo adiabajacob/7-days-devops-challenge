@@ -26,11 +26,11 @@ resource "aws_s3_bucket_versioning" "pipeline_artifacts" {
 
 # CodeStar Connection for GitHub
 resource "aws_codestarconnections_connection" "github" {
-  name          = "${var.project_name}-github-connection"
+  name          = "${var.project_name}-gh-conn"
   provider_type = "GitHub"
 
   tags = {
-    Name = "${var.project_name}-github-connection"
+    Name = "${var.project_name}-github"
   }
 }
 
