@@ -9,7 +9,23 @@ This project recreates the [NextWork 7 Days DevOps Challenge](https://learn.next
 
 ---
 
-## 📋 Table of Contents
+## � Screenshots
+
+### 1. Deployed Application
+The Node.js application running successfully on EC2, showing the health status and deployment version.
+![Deployed App](screenshots/deployed_app_on_ec2.png)
+
+### 2. AWS CodePipeline
+The complete CI/CD pipeline in action: Source (GitHub) -> Build (CodeBuild) -> Deploy (CodeDeploy).
+![Pipeline Success](screenshots/pipeline.png)
+
+### 3. GitHub Connection
+The CodeStar connection linking the AWS pipeline to the GitHub repository.
+![CodeStar Connection](screenshots/githhub_connection_codestar.png)
+
+---
+
+## �📋 Table of Contents
 
 - [Architecture Overview](#architecture-overview)
 - [Prerequisites](#prerequisites)
@@ -250,6 +266,8 @@ terraform output application_url
 | `key_pair_name` | EC2 key pair for SSH | `""` (optional) |
 
 ---
+
+
 
 ## ✅ Verification
 
